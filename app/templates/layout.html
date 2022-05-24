@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+<!-- Metadata: Start -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Mobile Viewport -->
+<meta name="description" content="Hemodialysis Department - Our patient is our top priority">
+<!-- Metadata: End -->
+
+<!-- Favicon: Start -->
+<link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="mask-icon" href="{{ url_for('static', filename='favicon.svg') }}" color="#3367D6">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='maskable_icon_x192.png') }}" id="safari">
+<!-- Favicon: End -->
+
+<!-- CSS Style Sheets: Start -->
+<link href="{{ url_for('static', filename='bootstrap-5.0.1-dist/css/bootstrap.min.css') }}" rel="stylesheet"> <!-- Bootstrap 5.0.1 Stylesheet -->
+<link href="{{ url_for('static', filename='core.css') }}" rel="stylesheet"> <!-- Main stylesheet -->
+<!-- CSS Style Sheets: End -->
+
+<!--- Title: Start -->
+{%+ if title -%}
+  <title>{{ title }} - Hemodialysis Department</title>
+{%- else -%}
+  <title>Hemodialysis Department</title>
+{%- endif +%}
+<!--- Title: End -->
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Header: Start -->
+<nav class="navbar navbar-expand-lg navbar-white" style="margin-top: 1.5% ;">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-5 link-dark" href="{{ url_for('home') }}">Hemodialysis Department</a>
+
+    <!-- Collapse Icon: Start -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapse Icon: End -->
+
+    <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
+      <!-- Header Hyperlinks: Start -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          {%- if request.path.startswith("/home") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+          {%- else -%}
+          <a class="nav-link link-secondary" href="{{ url_for('home') }}">Home</a>
+          {%- endif +%}
+        </li>
+        {% if auth.current_user.is_authenticated %}
+        <li class="nav-item">
+          {%- if request.path.startswith("/doctor/add") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('add_doctor') }}">Add Doctor <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('add_doctor') }}">Add Doctor</a>
+          {%- endif +%}
+        </li>
+        <li class="nav-item">
+          {%- if request.path.startswith("/doctor/view") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('view_doctor') }}">View Doctors <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('view_doctor') }}">View Doctors</a>
+          {%- endif +%}
+        </li>
+        <li class="nav-item">
+          {%- if request.path.startswith("/patient/add") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('add_patient') }}">Add Patient <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('add_patient') }}">Add Patient</a>
+          {%- endif +%}
+        </li>
+        <li class="nav-item">
+          {%- if request.path.startswith("/patient/view") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('view_patient') }}">View Patients <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('view_patient') }}">View Patients</a>
+          {%- endif +%}
+        </li>
+        <li class="nav-item">
+          {%- if request.path.startswith("/analysis") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('analysis') }}">Analysis <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('analysis') }}">Analysis</a>
+          {%- endif +%}
+        </li>
+        <li class="nav-item">
+          {%- if request.path.startswith("/messages") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('messages') }}">Messages <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('messages') }}">Messages</a>
+          {%- endif +%}
+        </li>
+        {% endif %}
+        {% if not auth.current_user.is_authenticated %}
+        <li class="nav-item">
+          {%- if request.path.startswith("/contact-us") +%}
+          <a class="nav-link active link-dark" href="{{ url_for('contact_us') }}">Contact Us <span class="sr-only">(current)</span></a>
+          {%- else +%}
+          <a class="nav-link link-secondary" href="{{ url_for('contact_us') }}">Contact Us</a>
+          {%- endif +%}
+        </li>
+        {% endif %}
+      </ul>
+      <!-- Header Hyperlinks: End -->
+      <!-- Search Box: Start -->
+      {% if not auth.current_user.is_authenticated %}
+      <form class="d-flex input-group w-auto">
+        <div class="text-end">
+          <a href="/sign-up"><button type="button" class="btn me-2">Sign-up</button></a>
+          <button type="button" class="btn border-dark" id="sign-in-button">Sign-in</button>
+        </div>
+      </form>
+      {% else %}
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ auth.current_user.AdminUsername }}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="/doctor/add">Add Doctor</a></li>
+          <li><a class="dropdown-item" href="/doctor/view">View Doctors</a></li>
+          <li><a class="dropdown-item" href="/patient/add">Add Patient</a></li>
+          <li><a class="dropdown-item" href="/patient/view">View Patients</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/sign-out">Sign out</a></li>
+        </ul>
+      </div>
+      {% endif %}
+      <!-- Search Box: End -->
+    </div>
+  </div>
+</nav>
+<!-- Header: End -->
+
+<!-- Page Content: Start -->
+{% block content %}
+{% endblock %}
+<!-- Page Content: End -->
+
+<!-- Footer: Start -->
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Made with  ❤ by Suhaila Ahmed, Lamis Kamal, Nada Nasr, Baraa Tarek, Shimaa Mamdouh.</span>
+  </div>
+</footer>
+<!-- Footer: End -->
+
+<!-- Javascript Scripts: Start -->
+<script src="{{ url_for('static', filename='bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js') }}"></script> <!-- Bootstrap 5.0.1 Javascript -->
+<script>var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]')); var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {return new bootstrap.Tooltip(tooltipTriggerEl)});</script> <!-- Enable tooltips everywhere -->
+<!-- Javascript Scripts: End -->
+
+</body>
+</html>

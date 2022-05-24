@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div style="height: 2.6rem;"></div>
+
+  <p class="text-center h2">Doctors Table</p>
+
+  <div style="height: 2rem;"></div>
+
+  <div class="me-5 ms-5">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">DrID</th>
+          <th scope="col">DrName</th>
+          <th scope="col">DrStatus</th>
+          <th scope="col">DrGender</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            <div class="dropdown">
+              <th scope="row">
+                <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ row.DrID }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                  <li><a class="dropdown-item" href="/doctor/edit?id={{row.DrID}}">Edit Doctor</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/doctor/delete?id={{row.DrID}}">Remove Doctor</a></li>
+                </ul>
+              </th>
+            </div>
+            <td> {{ row.DrName }} </td>
+            <td> {{ row.DrStatus }} </td>
+            <td> {{ row.DrGender }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div style="height: 10rem;"></div>
+{% endblock %}

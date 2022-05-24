@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div style="height: 7rem;"></div>
+  <div class="container">
+    <form action="/doctor/edit?id={{doctor.DrID}}" method="POST">
+        <div>
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="name" id="name" value="{{ doctor.DrName }}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">ID</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="id" id="id" value="{{ doctor.DrID }}" disabled>
+            </div>
+          </div>
+          <select class="form-select mb-3" name="status" aria-label="Default select example">
+            {% if doctor.DrStatus == "Trainee" %}
+            <option selected value="Trainee">Trainee</option> {% else %}
+            <option value="Trainee">Trainee</option> {% endif %}
+            {% if doctor.DrStatus == "Visitor" %}
+            <option selected value="Visitor">Visitor</option> {% else %}
+            <option value="Visitor">Visitor</option> {% endif %}
+            {% if doctor.DrStatus == "Permanent" %}
+            <option selected value="Permanent">Permanent</option> {% else %}
+            <option value="Permanent">Permanent</option> {% endif %}
+          </select>
+          <select class="form-select mb-3" name="gender" aria-label="Default select example">
+            {% if doctor.DrGender == "Male" %}
+            <option selected value="Male">Male</option> {% else %}
+            <option value="Male">Male</option> {% endif %}
+            {% if doctor.DrGender == "Female" %}
+            <option selected value="Female">Female</option> {% else %}
+            <option value="Female">Female</option> {% endif %}
+            {% if doctor.DrGender == "Unknown" %}
+            <option selected value="Unknown">Unknown</option> {% else %}
+            <option value="Unknown">Unknown</option> {% endif %}
+          </select>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Submit Changes</button>      
+          </div>
+        </div>
+    </form>
+  </div>
+{% endblock %}

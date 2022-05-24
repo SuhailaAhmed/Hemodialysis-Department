@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {%- for message in get_flashed_messages() +%}
+    <div style="height: 6rem;"></div>
+    <h1 class="display-4 fw-bold lh-1 text-center">{{ message }}</h1>
+  {%- endfor +%}
+  <div style="height: 6rem;"></div>
+  <div class="container my-5 ">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1">Your Safety First</h1>
+        <p class="lead">One of the top technologies in the word and #1 in the MENA region. We have sucessfully served more than 100,000 patient.</p><p>Get your hemodialysis supervised by the most qualified professionals in Egypt and the World!</p>
+      </div>
+    </div>
+  </div>
+  <div style="height: 6rem;"></div>
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{{ url_for('static', filename='hemodialysis-machine.jpg') }}" class="d-block mx-lg-auto img-fluid " alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Our patient is our top priority</h1>
+        <p class="lead">Get the best hemodialysis experience with less waiting time and a high quality service.</p>
+      </div>
+    </div>
+  </div>
+  <div style="height: 6rem;"></div>
+  {% if not auth.current_user.is_authenticated %}
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5" id="sign-in">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3">The care you need. The compassion you deserve.</h1>
+        <p class="col-lg-10 fs-4">Join our team.</p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="/home" method="POST">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="Name" placeholder="name@example.com">
+            <label for="floatingInput">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" name="Password" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div style="height: 4.2rem;"></div>
+
+  <script>
+    document.getElementById("sign-in-button").onclick = function () { document.getElementById('sign-in').scrollIntoView(true); };
+  </script>
+
+{% endblock content %}

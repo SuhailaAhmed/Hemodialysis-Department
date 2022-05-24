@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <script src="{{ url_for('static', filename='chart.js-2.9.4-dist/Chart.min.js') }}"></script>
+
+  <div style="height: 3rem;"></div>
+
+  <div class="container">
+    <div class="row mt-5 gx-5">  
+      <div class="col-6">
+        <h1 class="fw-bold lh-1 text-center mb-4">Doctors Groth Chart</h1>
+        <canvas id="doctorsChart"></canvas>
+      </div>
+      <div class="col-6">
+        <h1 class="fw-bold lh-1 text-center mb-4">Patients Groth Chart</h1>
+        <canvas id="patientsChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const labels = ["May", "June", "July", "August", "September", "October", "November"]
+
+    new Chart(document.getElementById("doctorsChart"), {
+      type: "line",
+      data: { labels: labels, datasets: [{ data: {{ data["doctors"] }}, fill: false, borderColor: '#0d6efd' }] },
+      options: { legend: { display: false } }
+    });
+
+    new Chart(document.getElementById("patientsChart"), {
+      type: "line",
+      data: { labels: labels, datasets: [{ data: {{ data["patients"] }}, fill: false, borderColor: '#0d6efd' }] },
+      options: { legend: { display: false } }
+    });
+  </script>
+{% endblock %}

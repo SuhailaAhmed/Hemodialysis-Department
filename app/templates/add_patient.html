@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div style="height: 7rem;"></div>
+  <div class="container">
+    <form action="/patient/add" method="POST">
+        <div>
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="name">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label" >ID</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="id">
+            </div>
+          </div>
+          <div class="form-group row mb-3">
+            <label for="example-date-input" class="col-2 col-form-label">Birthdate</label>
+            <div class="col-10">
+              <input class="form-control" type="date" id="example-date-input" name="date">
+            </div>
+          </div>
+          <select class="form-select mb-3" aria-label="Default select example" name="gender">
+            <option selected>Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+    </form>
+  </div>
+{% endblock %}
